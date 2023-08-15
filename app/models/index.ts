@@ -1,5 +1,6 @@
 import { Options, Sequelize } from 'sequelize'
-import Product from './product'
+import Product from './product';
+import CartItem from './cart';
 import config from '../config.json'
 
 // Open database connection
@@ -11,7 +12,7 @@ const sequelize = new Sequelize(
 )
 
 // Initialize each model in the database
-let models = [Product]
+let models = [Product, CartItem]
 models.forEach(model => model.initialize(sequelize))
 
 
@@ -21,5 +22,6 @@ sequelize.sync({ force: true })
 
 export {
     sequelize as Database,
-    Product
+    Product,
+    CartItem
 }
