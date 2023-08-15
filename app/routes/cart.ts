@@ -3,6 +3,12 @@ import controller from '../controllers/cart';
 
 const router = Router();
 
+/**
+ * @route POST /cart
+ * @desc Add a product to the cart
+ * @param  productId - The ID of the product to be added
+ * @returns Response indicating success or error
+ */
 router.post('/', async (req, res, next) => {
     try {
         const productId = parseInt(req.body.productId);
@@ -17,6 +23,11 @@ router.post('/', async (req, res, next) => {
     }
 });
 
+/**
+ * @route GET /cart
+ * @desc Get all cart items with promotions
+ * @returns Response containing cart items with promotions
+ */
 router.get('/', async (req, res, next) => {
     try {
         const cartItems = await controller.getAllCartItems();
