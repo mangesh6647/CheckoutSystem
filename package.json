@@ -5,11 +5,6 @@
     "main": "server.js",
     "scripts": {
         "tsc": "tsc",
-        "attached": "docker-compose -f docker-compose.yml up",
-        "background": "docker-compose -f docker-compose.yml up --detach",
-        "logs": "docker-compose -f docker-compose.yml logs",
-        "populate": "docker-compose -f docker-compose.yml exec database psql -f /tmp/example-data.sql example_db example_user",
-        "stop": "docker-compose -f docker-compose.yml down",
         "start": "tsc && node dist/server.js"
     },
     "keywords": [
@@ -17,13 +12,11 @@
         "typescript",
         "sequelize"
     ],
-    "author": "Oliver Emery",
-    "license": "GPL-3.0-only",
+    "license": "ISC",
     "dependencies": {
         "body-parser": "^1.19.0",
         "express": "^4.17.0",
         "express-list-endpoints": "^4.0.1",
-        "pg": "^7.11.0",
         "sequelize": "^5.8.6",
         "typescript": "^3.4.5",
         "mysql2": "^2.3.3"
