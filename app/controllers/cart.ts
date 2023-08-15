@@ -1,4 +1,22 @@
+import { applyAdditionalDiscount, applyPromotionRules } from '../PromotionRules/applyDiscounts';
 import { Product, CartItem } from '../models';
+
+
+export interface CartItemWithPromotion {
+    product: Product;
+    quantity: number;
+    originalPrice: number;
+    discountedPrice: number;
+    discount: number;
+}
+
+interface CartResponse {
+    cartItems: CartItemWithPromotion[];
+    totalPrice: number;
+    totalDiscount: number;
+}
+
+
 
 const addTocart = async (productId: number): Promise<boolean> => {
     try {
@@ -25,11 +43,44 @@ const addTocart = async (productId: number): Promise<boolean> => {
     }
 };
 
-const getAllCartItems = async (): Promise<any[]> => {
+const getAllCartItems = async (): Promise<CartResponse> => {
     try {
-        return await CartItem.findAll({
+        const cartItems = await CartItem.findAll({
             order: [['id', 'ASC']],
         });
+
+        const cartItemsWithPromotions: CartItemWithPromotion[] = [];
+
+        for (const cartItem of cartItems) {
+
+            const product = await Product.findByPk(cartItem.productId);
+
+            if (product === null) {
+                throw new Error('Product not found');
+            }
+
+            const cartItemWithPromotion: CartItemWithPromotion = {
+                product,
+                quantity: cartItem.quantity,
+                originalPrice: 0,
+                discountedPrice: 0,
+                discount: 0,
+            };
+
+            cartItemsWithPromotions.push(applyPromotionRules(cartItemWithPromotion));
+        }
+
+        const totalPrice = cartItemsWithPromotions.reduce((total, item) => total + item.discountedPrice, 0);
+        const totalDiscount = cartItemsWithPromotions.reduce((total, item) => total + item.discount, 0);
+
+        const finalTotalPrice = applyAdditionalDiscount(totalPrice);
+
+        return {
+            cartItems: cartItemsWithPromotions,
+            totalPrice: finalTotalPrice,
+            totalDiscount,
+        };
+
     } catch (error) {
         throw error;
     }
