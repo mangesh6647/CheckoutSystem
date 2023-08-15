@@ -1,5 +1,5 @@
 {
-    "name": "typescript-sequelize-example",
+    "name": "checkout-system",
     "version": "1.0.0",
     "description": "An example project using Sequelize with Node.js and TypeScript",
     "main": "server.js",
