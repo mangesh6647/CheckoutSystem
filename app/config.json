@@ -1,14 +1,11 @@
 {
-    "database": {
+    "development": {
         "dialect": "mysql",
         "host": "localhost",
         "username": "root",
         "password": "admin",
-        "database": "products",
+        "database": "checkoutsystem",
         "logging": false,
-        "port": 3306,
-        "sync": {
-            "force": true
-        }
+        "port": 3306
     }
 }
