@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import controller from '../controllers/product';
 
 const router = Router();
@@ -7,7 +7,7 @@ const router = Router();
  * @desc Get all products
  * @returns  Response containing a list of products
  */
-router.get('/', async (req, res, next) => {
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const products = await controller.getProducts();
         res.status(200).send(products);
@@ -23,7 +23,7 @@ router.get('/', async (req, res, next) => {
  * @param  price - The price of the product
  * @returns  Response indicating success or error
  */
-router.post('/', async (req, res, next) => {
+router.post('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const id = await controller.createProduct(req.body.productName, req.body.price);
         res.status(201).send({ msg: 'Product inserted', id: id });

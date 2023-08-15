@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import controller from '../controllers/cart';
 
 const router = Router();
@@ -9,7 +9,7 @@ const router = Router();
  * @param  productId - The ID of the product to be added
  * @returns Response indicating success or error
  */
-router.post('/', async (req, res, next) => {
+router.post('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const productId = parseInt(req.body.productId);
         const isItemAdded = await controller.addTocart(productId);
@@ -28,7 +28,7 @@ router.post('/', async (req, res, next) => {
  * @desc Get all cart items with promotions
  * @returns Response containing cart items with promotions
  */
-router.get('/', async (req, res, next) => {
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const cartItems = await controller.getAllCartItems();
         res.status(200).send(cartItems);
