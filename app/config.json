@@ -1,0 +1,14 @@
+{
+    "database": {
+        "dialect": "mysql",
+        "host": "localhost",
+        "username": "root",
+        "password": "admin",
+        "database": "products",
+        "logging": false,
+        "port": 3306,
+        "sync": {
+            "force": true
+        }
+    }
+}
